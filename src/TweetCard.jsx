@@ -1,18 +1,47 @@
-import { useState } from "react";
-import hansel from "./assets/hansel.png";
+import { useState, useEffect } from "react";
 import "./App.css";
+import { updateUser } from "./API/fetchUsers";
 
-function TweetCard({ tweets }) {
-  const [tweetCount, setTweetCount] = useState(100500);
-  const [status, setStatus] = useState(false);
+function TweetCard({ tweetCard }) {
+  const { id, user, tweets, followers, avatar } = tweetCard;
+  const [followersCount, setFollowersCount] = useState(followers);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isFirstRender, setIsFirstRender] = useState(false);
 
   const onTweetFollow = () => {
-    setStatus((prevState) => !prevState);
+    setIsFollowing((prevState) => !prevState);
+    setIsFirstRender((prevState) => !prevState);
 
-    status
-      ? setTweetCount((prevState) => prevState - 1)
-      : setTweetCount((prevState) => prevState + 1);
+    isFollowing
+      ? setFollowersCount((prevState) => prevState - 1)
+      : setFollowersCount((prevState) => prevState + 1);
   };
+
+  useEffect(() => {
+    if (isFirstRender) {
+      return;
+    }
+    console.log(isFirstRender);
+
+    const credentials = {
+      id,
+      user,
+      tweets,
+      followers: followersCount,
+      avatar,
+    };
+
+    async function updateUserFollowers() {
+      try {
+        console.log("update");
+        // await updateUser(id, credentials);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    updateUserFollowers();
+  }, [followersCount]);
 
   return (
     <li className="tweet-card">
@@ -21,17 +50,17 @@ function TweetCard({ tweets }) {
 
       <div className="tweet-image-box-outer">
         <div className="tweet-image-box">
-          <img src={hansel} className="tweet-image" alt="user logo" />
+          <img src={avatar} className="tweet-image" alt="user avatar" />
         </div>
       </div>
 
       <div className="tweet-count-box">
-        <p className="tweet-count">777 Tweets</p>
-        <p className="tweet-count">{tweetCount} Followers</p>
+        <p className="tweet-count">{tweets} Tweets</p>
+        <p className="tweet-count">{followersCount} Followers</p>
       </div>
 
       <button type="button" className="tweet-button" onClick={onTweetFollow}>
-        {status ? "Following" : "Follow"}
+        {isFollowing ? "Following" : "Follow"}
       </button>
     </li>
   );

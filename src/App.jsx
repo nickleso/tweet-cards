@@ -1,18 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import TweetCard from "./TweetCard";
+import { fetchUsers } from "./API/fetchUsers";
 
 function App() {
-  const [tweets, setTweets] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-    22, 23, 24, 25, 26, 27, 28, 29, 30,
-  ]);
+  const [tweetCards, setTweetCards] = useState([]);
+
+  useEffect(() => {
+    async function searchUsers() {
+      try {
+        const users = await fetchUsers();
+        setTweetCards(users);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    searchUsers();
+  }, []);
 
   return (
     <div className="tweets">
       <ul className="tweet-list">
-        {tweets.map((item) => (
-          <TweetCard key={item} tweets={tweets} />
+        {tweetCards.map((tweet) => (
+          <TweetCard key={tweet.id} tweetCard={tweet} />
         ))}
       </ul>
     </div>
