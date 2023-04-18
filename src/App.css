@@ -1,25 +1,43 @@
-.tweets {
-  box-sizing: border-box;
-
-  padding: 20px;
+.container {
+  position: relative;
+  padding: 20px 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
-.tweet-list {
-  box-sizing: border-box;
-
+.navigation {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   gap: 20px;
 }
 
-.tweet-card {
-  box-sizing: border-box;
+.navigation-link {
+  display: inline-flex;
+  padding: 4px 12px;
+  border-radius: 4px;
+}
 
+.tweets {
+  padding: 0 20px;
+}
+
+.tweet-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 36px;
+}
+
+.tweet-card {
   position: relative;
   width: 380px;
   height: 460px;
-  /* padding: 178px 36px 36px; */
   padding-bottom: 36px;
   display: flex;
   flex-direction: column;
@@ -37,8 +55,6 @@
 }
 
 .tweet-logo {
-  box-sizing: border-box;
-
   position: absolute;
   top: 20px;
   left: 20px;
@@ -48,8 +64,6 @@
 }
 
 .tweet-background {
-  box-sizing: border-box;
-
   position: absolute;
   top: 28px;
   left: 36px;
@@ -59,8 +73,6 @@
 }
 
 .tweet-background::after {
-  box-sizing: border-box;
-
   z-index: 0;
   content: "";
   position: absolute;
@@ -70,9 +82,7 @@
   top: 186px;
   left: -36px;
 
-  /* transform: translateY(-100%); */
-
-  background: #ebd8ff;
+  background-color: #ebd8ff;
   box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.06),
     inset 0px -1.71846px 3.43693px #ae7be3, inset 0px 3.43693px 2.5777px #fbf8ff;
 }
@@ -81,26 +91,21 @@
 }
 
 .tweet-image-box {
-  box-sizing: border-box;
-
-  z-index: 100;
+  z-index: 10;
   width: 80px;
   height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #5736a3;
 
-  box-shadow: 0px 4.39163px 4.39163px rgba(0, 0, 0, 0.06),
-    inset 0px -2.19582px 4.39163px #ae7be3,
-    inset 0px 1.39163px 3.29372px #fbf8ff;
-
-  border: 9px #ebd8ff solid;
+  background-image: url(./assets/ellipse1.png);
+  background-size: contain;
   border-radius: 50%;
   overflow: hidden;
 }
 
 .tweet-image {
+  z-index: -10;
   box-sizing: border-box;
 
   width: 62px;
@@ -108,8 +113,6 @@
 }
 
 .tweet-count-box {
-  box-sizing: border-box;
-
   padding: 26px 0;
   display: flex;
   flex-direction: column;
@@ -118,8 +121,6 @@
 }
 
 .tweet-count {
-  box-sizing: border-box;
-
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
@@ -131,11 +132,9 @@
 }
 
 .tweet-button {
-  box-sizing: border-box;
-
   min-width: 196px;
   padding: 14px 0;
-  background: #ebd8ff;
+  background-color: #ebd8ff;
   box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
   border-radius: 10.3108px;
 
@@ -147,10 +146,14 @@
 
   text-transform: uppercase;
   color: #373737;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tweet-button:hover,
-.tweet-button:focus,
-.tweet-button:active {
-  background: #5cd3a8;
+.tweet-button:focus {
+  background-color: #5cd3a8;
+}
+
+.active {
+  background-color: #5cd3a8;
 }
